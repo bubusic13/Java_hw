@@ -8,15 +8,15 @@ public class Demo {
                 array[i] = generator.nextInt(100);
             }
 
-        for (int i=0; i<99; i++) {
+        for (int i=0; i<100; i++) {
             System.out.print(array[i] + ", ");
         }
+        System.out.println();
 
         QuickSort qs = new QuickSort();
         int[] sortArray = qs.quickSort(array);
 
-        System.out.println();
-        for (int i=0; i<99; i++) {
+        for (int i=0; i<100; i++) {
             System.out.print(sortArray[i] + ", ");
         }
     }
