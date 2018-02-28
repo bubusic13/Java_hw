@@ -4,9 +4,8 @@ import java.io.IOException;
 
 public class Demo {
     public static String read(String path) {
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(path));
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))){
+
             StringBuilder stringBuilder = new StringBuilder();
 
             String currentString;
@@ -21,14 +20,7 @@ public class Demo {
         catch (IOException e){
             return "IOException";
         }
-        finally {
-            try {
-                reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
-        }
     }
 
     public static void main(String[] args) throws IOException {
