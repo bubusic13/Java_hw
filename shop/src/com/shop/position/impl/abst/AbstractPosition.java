@@ -5,7 +5,7 @@ import com.shop.position.Position;
 /**
  * Created by cube on 21.02.2018.
  */
-public abstract class AbstractPosition implements Position, Comparable<AbstractPosition> {
+public abstract class AbstractPosition implements Position {
 
     public double price;
 
@@ -16,10 +16,6 @@ public abstract class AbstractPosition implements Position, Comparable<AbstractP
         this.name = name;
     }
 
-    @Override
-    public int compareTo(AbstractPosition o) {
-        return (int)(o.getPrice() - this.getPrice());
-    }
 
     @Override
     public double getPrice() {
@@ -37,5 +33,10 @@ public abstract class AbstractPosition implements Position, Comparable<AbstractP
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public int compareTo(Position o) {
+       return  (int)(o.getPrice() - this.getPrice());
     }
 }

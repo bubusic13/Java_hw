@@ -3,7 +3,9 @@ package com.shop.bag;
 import com.shop.position.Position;
 import com.shop.position.impl.SortByPrice;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 
 /**
@@ -12,7 +14,7 @@ import java.util.Arrays;
 public class BagImpl implements Bag {
     private static final int SIZE = 10;
 
-    private Position[] positions = new Position[SIZE];
+    private ArrayList<Position> positions = new ArrayList<>();
 
     private int realIndex = 0;
 
@@ -25,7 +27,8 @@ public class BagImpl implements Bag {
 
     public void add(Position position) {
         if (position != null) {
-            positions[realIndex++] = position;
+            positions.add(position);
+            realIndex++;
         }
     }
 
@@ -34,7 +37,7 @@ public class BagImpl implements Bag {
     }
 
     public Position next() {
-        return positions[iteratorIndex++];
+        return positions.get(iteratorIndex++);
     }
 
     public void initIterator() {
@@ -42,18 +45,11 @@ public class BagImpl implements Bag {
     }
 
     public void sortBag() {
-        Arrays.sort(positions, new SortByPrice());
+        Collections.sort(positions);
     }
 
     public int checkAkciya(){
-        int i = 0;
-        int j = 0;
-        for(Position p : positions){
-            if(p != null){
-                j++;
-            }
-        }
-        return i + j / 3;
+        return (int)positions.size()/3;
     }
 
 

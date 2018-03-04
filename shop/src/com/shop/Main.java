@@ -1,14 +1,15 @@
 package com.shop;
 
+import com.shop.Customer.Customer;
 import com.shop.bag.ATBPacket;
 import com.shop.bag.Bag;
 import com.shop.bag.BagImpl;
 import com.shop.manager.ShopManager;
 import com.shop.position.impl.Apple;
 import com.shop.position.impl.Pen;
-import com.shop.shelf.AppleShelf;
-import com.shop.shelf.PenShelf;
+import com.shop.shelf.Shelf;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -18,7 +19,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        AppleShelf appleShelf = new AppleShelf();
+        Shelf<Apple> appleShelf = new Shelf<>();
         appleShelf.put(new Apple(25, "Iabloc"));
         appleShelf.put(new Apple(25, "Iabloc"));
         appleShelf.put(new Apple(25, "Iabloc"));
@@ -27,44 +28,55 @@ public class Main {
         appleShelf.put(new Apple(25, "Iabloc"));
 
 
-        PenShelf penShelf = new PenShelf();
+        Shelf<Pen> penShelf = new Shelf<>();
         penShelf.put(new Pen(10,"karandashik"));
         penShelf.put(new Pen(10,"karandashik"));
 
-        Scanner scanner = new Scanner(System.in);
-        Bag bag;
-        System.out.println("S chem poidem vasia?");
-        System.out.println("1: ATB power");
-        System.out.println("2: Standart edition Galia");
-        switch (scanner.nextInt()){
-            case 1:
-                bag = new ATBPacket();
-                break;
-            case 2:
-                bag= new BagImpl();
-                break;
-            default:
-                System.out.println("sho zirkaech? pognali s rukzacom");
-                bag= new BagImpl();
-        }
+            Scanner scanner = new Scanner(System.in);
+            Bag bag;
+            Customer customer = new Customer();
+            System.out.println("S chem poidem vasia?");
+            System.out.println("1: ATB power");
+            System.out.println("2: Standart edition Galia");
+            switch (scanner.nextInt()) {
+                case 1:
+                    bag = new ATBPacket();
+                    break;
+                case 2:
+                    bag = new BagImpl();
+                    break;
+                default:
+                    System.out.println("sho zirkaech? pognali s rukzacom");
+                    bag = new BagImpl();
+            }
+
+
+
         while (true){
             System.out.println("Shito delaem desy?");
             System.out.println("1: go za pokupkami person-san");
             System.out.println("2: go na cassu");
+            System.out.println("3: noviy paket");
             switch (scanner.nextInt()){
                 case 1:
                     doPokupki(bag, appleShelf, penShelf);
                     break;
                 case 2:
-                    goNaCassu(bag);
+                    goNaCassu(customer);
+                    customer.putBag(bag);
                     break;
+                case 3:
+                    customer.putBag(bag);
+                    bag = new BagImpl();
+                    break;
+
                 default:
                     System.out.println("dich. ti vtiraech mne dich");
             }
         }
     }
 
-    private static void doPokupki(Bag bag, AppleShelf appleShelf, PenShelf penShelf){
+    private static void doPokupki(Bag bag, Shelf appleShelf, Shelf penShelf){
         Scanner scanner = new Scanner(System.in);
         while(bag.getNotUsedSize() != 0){
             if(penShelf.checkAvailable()){
@@ -85,7 +97,18 @@ public class Main {
         System.out.println("Galia, I te sho grushick");
     }
 
-    private static void goNaCassu(Bag bag){
+    private static void goNaCassu(Customer customer){
+
+        System.out.println("Viberi chto oplatit' ");
+
+        for(String key : customer.getPayment().keySet()){
+            System.out.println(key + " status: " + customer.getPayment().get(key));
+        }
+        System.out.println("Vvedi vibraniy paket");
+        Scanner scanner = new Scanner(System.in);
+        String key = scanner.nextLine();
+        customer.payForBag(key);
+        Bag bag = customer.getBags().get(key);
         ShopManager babaGala = new ShopManager();
         try {
             babaGala.sum(bag);
