@@ -31,25 +31,10 @@ public class Main {
         Shelf<Pen> penShelf = new Shelf<>();
         penShelf.put(new Pen(10,"karandashik"));
         penShelf.put(new Pen(10,"karandashik"));
+        Customer customer = new Customer();
+        Scanner scanner = new Scanner(System.in);
 
-            Scanner scanner = new Scanner(System.in);
-            Bag bag;
-            Customer customer = new Customer();
-            System.out.println("S chem poidem vasia?");
-            System.out.println("1: ATB power");
-            System.out.println("2: Standart edition Galia");
-            switch (scanner.nextInt()) {
-                case 1:
-                    bag = new ATBPacket();
-                    break;
-                case 2:
-                    bag = new BagImpl();
-                    break;
-                default:
-                    System.out.println("sho zirkaech? pognali s rukzacom");
-                    bag = new BagImpl();
-            }
-
+        Bag bag = newPaket(scanner);
 
 
         while (true){
@@ -62,12 +47,13 @@ public class Main {
                     doPokupki(bag, appleShelf, penShelf);
                     break;
                 case 2:
-                    goNaCassu(customer);
                     customer.putBag(bag);
+                    goNaCassu(customer);
+
                     break;
                 case 3:
                     customer.putBag(bag);
-                    bag = new BagImpl();
+                    bag = newPaket(scanner);
                     break;
 
                 default:
@@ -98,25 +84,50 @@ public class Main {
     }
 
     private static void goNaCassu(Customer customer){
+        while (true) {
+            System.out.println("Viberi chto oplatit' ");
 
-        System.out.println("Viberi chto oplatit' ");
-
-        for(String key : customer.getPayment().keySet()){
-            System.out.println(key + " status: " + customer.getPayment().get(key));
-        }
-        System.out.println("Vvedi vibraniy paket");
-        Scanner scanner = new Scanner(System.in);
-        String key = scanner.nextLine();
-        customer.payForBag(key);
-        Bag bag = customer.getBags().get(key);
-        ShopManager babaGala = new ShopManager();
-        try {
-            babaGala.sum(bag);
-            System.out.println("oi mama, hera tac dorogo");
-            System.exit(0);
-        } catch (InterruptedException e) {
-            System.out.println("SCORUYY!!BABA GALA ");
+            for (String key : customer.getPayment().keySet()) {
+                System.out.println(key + " status: " + customer.getPayment().get(key));
+            }
+            System.out.println("Vvedi vibraniy paket");
+            Scanner scanner = new Scanner(System.in);
+            String key = scanner.nextLine();
+            if (key == "1") {
+                System.exit(0);
+            }
+            customer.payForBag(key);
+            Bag bag = customer.getBags().get(key);
+            ShopManager babaGala = new ShopManager();
+            try {
+                babaGala.sum(bag);
+                System.out.println("oi mama, hera tac dorogo");
+            } catch (InterruptedException e) {
+                System.out.println("SCORUYY!!BABA GALA ");
+            }
         }
     }
+
+    private static Bag newPaket(Scanner scanner){
+
+        Bag bag;
+        Customer customer = new Customer();
+        System.out.println("S chem poidem vasia?");
+        System.out.println("1: ATB power");
+        System.out.println("2: Standart edition Galia");
+        switch (scanner.nextInt()) {
+            case 1:
+                bag = new ATBPacket();
+                break;
+            case 2:
+                bag = new BagImpl();
+                break;
+            default:
+                System.out.println("sho zirkaech? pognali s rukzacom");
+                bag = new BagImpl();
+        }
+        return bag;
+    }
+
 
 }
