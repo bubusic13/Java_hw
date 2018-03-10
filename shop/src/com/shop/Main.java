@@ -1,6 +1,6 @@
 package com.shop;
 
-import com.shop.Customer.Customer;
+import com.shop.сustomer.Customer;
 import com.shop.bag.ATBPacket;
 import com.shop.bag.Bag;
 import com.shop.bag.BagImpl;
@@ -9,7 +9,6 @@ import com.shop.position.impl.Apple;
 import com.shop.position.impl.Pen;
 import com.shop.shelf.Shelf;
 
-import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -94,7 +93,7 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             String key = scanner.nextLine();
             if (key == "1") {
-                System.exit(0);
+                break;
             }
             customer.payForBag(key);
             Bag bag = customer.getBags().get(key);
@@ -106,6 +105,7 @@ public class Main {
                 System.out.println("SCORUYY!!BABA GALA ");
             }
         }
+        System.exit(0);
     }
 
     private static Bag newPaket(Scanner scanner){

@@ -1,7 +1,6 @@
-package com.shop.Customer;
+package com.shop.сustomer;
 
 import com.shop.bag.Bag;
-import com.shop.bag.BagImpl;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

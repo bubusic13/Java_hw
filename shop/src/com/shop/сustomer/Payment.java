@@ -1,4 +1,4 @@
-package com.shop.Customer;
+package com.shop.сustomer;
 
 enum  Payment {
     OPEN, PAID
