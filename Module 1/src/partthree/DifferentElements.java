@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 public class DifferentElements {
 
-    int[] array = {1,2,3,4,4,2,1,5,3,2};
+    int[] array = {1,4,5,1,1,3};
     HashSet hashSet = new HashSet();
 
     public void findNumberOfDifferentElements(){

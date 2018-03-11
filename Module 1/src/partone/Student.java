@@ -1,18 +1,16 @@
 package partone;
 
+import java.util.ArrayList;
+
 public class Student {
 
 
     private String name;
     private Faculty faculty;
-    private int[] exam;
+    private ArrayList<Examinations> exam = new ArrayList<>();
 
-    public Student(String name){
+    public Student (String name){
         this.name = name;
-    }
-
-    public void registry (Faculty faculty){
-        this.faculty = faculty;
     }
 
     public String getName() {
@@ -26,16 +24,17 @@ public class Student {
     public Faculty getFaculty() {
         return faculty;
     }
-    public int[] getExam() {
+
+    public void registrationFaculty(Faculty faculty) {
+        this.faculty = faculty;
+    }
+
+    public  void addExam(String examName){
+        Examinations examinations = new Examinations(examName);
+        exam.add(examinations);
+    }
+
+    public ArrayList<Examinations> getExams(){
         return exam;
     }
-
-    public void setExam(int[] exam) {
-        this.exam = exam;
-    }
-
-
-
-
-
 }

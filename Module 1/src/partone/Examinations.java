@@ -1,16 +1,29 @@
 package partone;
 
-import java.util.HashMap;
+
 
 public class Examinations {
-    HashMap<String, int[]> map = new HashMap<>();
 
-    public void setExam(String name, int[] array ){
-        map.put(name, array);
+    private int grade = 0;
+    private String nameOfExam;
+
+    public Examinations(String nameOfExam){
+        this.nameOfExam = nameOfExam;
     }
 
-    public HashMap<String, int[]> getMap(){
-        return map;
+    public int getGrade() {
+        return grade;
     }
 
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
+    public String getNameOfExam() {
+        return nameOfExam;
+    }
+
+    public void setNameOfExam(String nameOfExam) {
+        this.nameOfExam = nameOfExam;
+    }
 }

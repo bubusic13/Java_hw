@@ -1,12 +1,18 @@
 package partone;
 
-import java.util.HashMap;
+
+import java.util.Scanner;
 
 public class Teacher {
 
-    public void grade(String name, Examinations examinations, int[] array){
-        HashMap<String, int[]> map = examinations.getMap();
-        map.put(name, array);
+    Scanner scanner = new Scanner(System.in);
 
+    public  void setGrade(Student student){
+
+        for(Examinations examinations : student.getExams()){
+            int grade = scanner.nextInt();
+            examinations.setGrade(grade);
+        }
     }
+
 }
