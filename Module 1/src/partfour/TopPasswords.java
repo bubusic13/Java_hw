@@ -19,15 +19,20 @@ public class TopPasswords  {
     public void readPasswords() throws IOException {
         String string = reader.readLine();
         String key = string.substring(string.indexOf(" ") + 1);
-        while (key != null) {
+        while (string != null) {
             if(map.containsKey(key)){
                 map.put(key , map.get(key) + 1);
-                key = reader.readLine();
+                string = reader.readLine();
+                if(string != null) {
+                    key = string.substring(string.indexOf(" ") + 1);
+                }
             }
             else {
                 map.put(key, 1);
-                String string = reader.readLine();
-                String key = string.substring(string.indexOf(" ") + 1);
+                string = reader.readLine();
+                if(string != null) {
+                    key = string.substring(string.indexOf(" ") + 1);
+                }
             }
         }
     }
