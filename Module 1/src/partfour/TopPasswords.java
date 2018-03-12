@@ -17,7 +17,8 @@ public class TopPasswords  {
     }
 
     public void readPasswords() throws IOException {
-        String key = reader.readLine();
+        String string = reader.readLine();
+        String key = string.substring(string.indexOf(" ") + 1);
         while (key != null) {
             if(map.containsKey(key)){
                 map.put(key , map.get(key) + 1);
@@ -25,7 +26,8 @@ public class TopPasswords  {
             }
             else {
                 map.put(key, 1);
-                key = reader.readLine();
+                String string = reader.readLine();
+                String key = string.substring(string.indexOf(" ") + 1);
             }
         }
     }
