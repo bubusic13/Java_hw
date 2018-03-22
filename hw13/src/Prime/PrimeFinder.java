@@ -1,4 +1,4 @@
-package Prime;
+package prime;
 
 import java.util.concurrent.ArrayBlockingQueue;
 
