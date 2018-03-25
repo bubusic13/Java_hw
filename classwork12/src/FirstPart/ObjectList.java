@@ -22,16 +22,16 @@ public class ObjectList {
         list.add(transport);
         list.add(orc);
 
-        Path path = Paths.get("/Users/bubusic/IdeaProjects/classwork12/src/FirstPart/objects");
-            FileOutputStream fos = new FileOutputStream(path.toFile());
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            FileInputStream fis = new FileInputStream(path.toFile());
-            ObjectInputStream ois = new ObjectInputStream(fis);
+        Path path = Paths.get("/Users/bubusic/IdeaProjects/classwork12/src/FirstPart/file.txt");
+        FileOutputStream fos = new FileOutputStream(path.toFile());
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        FileInputStream fis = new FileInputStream(path.toFile());
+        ObjectInputStream ois = new ObjectInputStream(fis);
 
-        /*
+
         try {
             listIn = (ArrayList<Transport>) ois.readObject();
-        } catch (EOFException e){
+        }  catch (EOFException e){
             System.out.println("Write");
             oos.writeObject(list);
             oos.writeObject(null);
@@ -53,7 +53,7 @@ public class ObjectList {
         for (Transport transport : listIn) {
             System.out.println(transport);
         }
-        */
+
     }
 
 }
