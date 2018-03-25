@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
 
         /*
         StringWraper stringWraper = new StringWraper();
@@ -15,10 +15,8 @@ public class Main {
         }
         */
 
-
-        File file = new File("/Users/bubusic/IdeaProjects/classwork12/src/FirstPart/objects");
         ObjectList objectList = new ObjectList();
-        objectList.readObjectsFromFile(file);
+        objectList.readObjectsFromFile();
 
     }
 

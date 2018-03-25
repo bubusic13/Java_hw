@@ -1,51 +1,59 @@
 package FirstPart;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class ObjectList {
     Airplane airplane = new Airplane(120, 12, "Jet");
     Car car = new Car(20, 22, "Car");
-    OffRoadCar orc = new OffRoadCar(40, 12, "Car",1);
+    OffRoadCar orc = new OffRoadCar(40, 12, "Car", 1);
     Transport transport = new Transport(2, 2);
     ArrayList<Transport> list = new ArrayList<>();
-    ArrayList<Transport> inList = new ArrayList<>();
-    FileInputStream fis = null;
-    ObjectInputStream ois = null;
+    ArrayList<Transport> listIn = new ArrayList<>();
 
 
-    public void readObjectsFromFile(File file) throws IOException {
+    public void readObjectsFromFile() throws IOException {
 
         list.add(car);
         list.add(airplane);
         list.add(transport);
         list.add(orc);
 
-            FileOutputStream fos = new FileOutputStream(file);
+        Path path = Paths.get("/Users/bubusic/IdeaProjects/classwork12/src/FirstPart/objects");
+            FileOutputStream fos = new FileOutputStream(path.toFile());
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            fis = new FileInputStream(file);
-            ois = new ObjectInputStream(fis);
-            if (ois.available() == 0) {
-                oos.writeObject(list);
-            }
-            else {
-                while (ois.available() > 0) {
-                    try {
-                        inList =(ArrayList<Transport>) ois.readObject();
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            oos.close();
-            ois.close();
+            FileInputStream fis = new FileInputStream(path.toFile());
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+        /*
+        try {
+            listIn = (ArrayList<Transport>) ois.readObject();
+        } catch (EOFException e){
+            System.out.println("Write");
+            oos.writeObject(list);
+            oos.writeObject(null);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            listIn = (ArrayList<Transport>) ois.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
 
+        oos.close();
+        ois.close();
 
 
-        for(Transport transport : inList){
+        for (Transport transport : listIn) {
             System.out.println(transport);
         }
+        */
     }
 
 }
