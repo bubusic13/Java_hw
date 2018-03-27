@@ -13,47 +13,35 @@ public class ObjectList {
     Transport transport = new Transport(2, 2);
     ArrayList<Transport> list = new ArrayList<>();
     ArrayList<Transport> listIn = new ArrayList<>();
+    Path path = Paths.get("/Users/bubusic/IdeaProjects/classwork12/src/FirstPart/file.txt");
 
 
-    public void readObjectsFromFile() throws IOException {
+    public void readObjects() throws IOException {
 
         list.add(car);
         list.add(airplane);
         list.add(transport);
         list.add(orc);
 
-        Path path = Paths.get("/Users/bubusic/IdeaProjects/classwork12/src/FirstPart/file.txt");
-        FileOutputStream fos = new FileOutputStream(path.toFile());
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        FileInputStream fis = new FileInputStream(path.toFile());
-        ObjectInputStream ois = new ObjectInputStream(fis);
-
 
         try {
+            FileInputStream fis = new FileInputStream(path.toFile());
+            ObjectInputStream ois = new ObjectInputStream(fis);
             listIn = (ArrayList<Transport>) ois.readObject();
+            ois.close();
         }  catch (EOFException e){
             System.out.println("Write");
+            FileOutputStream fos = new FileOutputStream(path.toFile());
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(list);
-            oos.writeObject(null);
+            oos.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-        try {
-            listIn = (ArrayList<Transport>) ois.readObject();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
-        oos.close();
-        ois.close();
-
 
         for (Transport transport : listIn) {
             System.out.println(transport);
         }
 
     }
-
 }
