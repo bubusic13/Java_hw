@@ -37,17 +37,21 @@ public class PositionWraper implements Iterable<Position> {
          */
         @Override
         public boolean hasNext() {
-            return (currentIndex < list.size());
+            while (currentIndex < list.size()){
+                if(list.get(currentIndex).getPrice() < 5){
+                    return true;
+                }
+                else {
+                    currentIndex++;
+                }
+            }
+            return false;
         }
 
 
         @Override
         public Position next() {
-            Position position = list.get(currentIndex++);
-            while(position.getPrice() >= 5){
-                position = list.get(currentIndex++);
-            }
-                return position;
+            return list.get(currentIndex++);
         }
 
         /**
