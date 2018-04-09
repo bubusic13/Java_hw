@@ -1,0 +1,38 @@
+CREATE DATABASE shop;
+CREATE TABLE `order` (
+  `order_id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` datetime NOT NULL,
+  `price` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL,
+  PRIMARY KEY (`order_id`),
+  CONSTRAINT `status_id` FOREIGN KEY (`status_id`) REFERENCES `status` (`status_id`),
+  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`));
+
+CREATE TABLE `order_positions` (
+  `order_id` int(11) NOT NULL,
+  `position_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`order_id`,`position_id`),
+  KEY `position_id_idx` (`position_id`),
+  CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`),
+  CONSTRAINT `position_id` FOREIGN KEY (`position_id`) REFERENCES `position` (`position_id`));
+
+CREATE TABLE `position` (
+  `position_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `price` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`position_id`));
+
+CREATE TABLE `status` (
+  `status_id` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`status_id`));
+
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `pass_hash` varchar(45) NOT NULL,
+  PRIMARY KEY (`user_id`));

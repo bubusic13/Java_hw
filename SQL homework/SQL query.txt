@@ -1,0 +1,67 @@
+ select * from employees.departments;
+ 
+select first_name, last_name, hire_date from employees.employees;
+
+select em.first_name, em.last_name, sum(sal.salary)
+from employees em 
+inner join salaries sal on (em.emp_no=sal.emp_no) 
+where sal.to_date like '2000%'
+group by em.emp_no;
+
+
+select em.first_name, em.last_name, sum(sal.salary)
+from employees em 
+inner join salaries sal on (em.emp_no=sal.emp_no) 
+group by em.emp_no;
+
+
+select em.first_name, em.last_name, em.hire_date
+from employees em
+where em.hire_date like '1992%';
+
+
+select employees.first_name from employees where employees.last_name like 'L%' or 'K%';
+
+
+select  em.first_name, em.last_name, sum(sal.salary)
+from employees em 
+inner join salaries sal on (em.emp_no = sal.emp_no) 
+group by em.emp_no
+having sum(sal.salary) between 90000 and 100000
+
+
+select departments.dept_name, count(dept_emp.emp_no)
+from dept_emp
+inner join departments on (dept_emp.dept_no=departments.dept_no)
+group by departments.dept_no;
+
+
+select concat(substr("Intelligent Decision Support Systems", 1, 11), substr("Intelligent Decision Support Systems", 29, 36)) as Test;
+
+SELECT CONCAT(SUBSTRING_INDEX("Intelligent Decision Support Systems", " ", 1), " ", SUBSTRING_INDEX("Intelligent Decision Support Systems", " ", -1));
+
+select current_date();
+
+select departments.dept_name from departments order by dept_name;
+
+select employees.first_name, employees.last_name, employees.birth_date 
+from employees 
+where timestampdiff(YEAR, employees.hire_date, curdate()) < 20;
+
+
+select avg(salaries.salary) 
+from salaries
+inner join employees on (employees.emp_no = salaries.emp_no)
+inner join dept_emp on (employees.emp_no = dept_emp.emp_no)
+where salaries.from_date or salaries.to_date like '2000%'
+group by dept_emp.dept_no;
+
+
+
+select count(salaries.to_date) from salaries
+where salaries.to_date like '9999%'; 
+
+
+select count(employees.emp_no) from employees
+inner join dept_emp on (employees.emp_no = dept_emp.emp_no)
+group by dept_emp.dept_no;
