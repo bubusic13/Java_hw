@@ -4,26 +4,20 @@ import java.util.*;
 
 public class MyArrayList<T> implements List<T> {
 
-    private int size;
-    transient T[] elementData;
-    private static final int DEFAULT_CAPACITY = 10;
-    private static final Object[] EMPTY_ELEMENTDATA = {};
-    private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
+    private int size = 0;
+    private final int INIT_SIZE = 16;
+    private final int CUT_RATE = 4;
+    private Object [] array = new Object [INIT_SIZE];
 
-    public MyArrayList(int initialCapacity) {
-        if (initialCapacity > 0) {
-            this.elementData = (T[]) new Object[initialCapacity];
-        } else if (initialCapacity == 0) {
-            this.elementData = (T[]) EMPTY_ELEMENTDATA;
-        } else {
-            throw new IllegalArgumentException("Illegal Capacity: "+
-                    initialCapacity);
-        }
+
+    private void resize(int newLength) {
+        Object[] newArray = new Object[newLength];
+        System.arraycopy(array, 0, newArray, 0, size);
+        array = newArray;
     }
 
-    public MyArrayList() {
-        this.elementData = (T[]) DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
-    }
+
+
     /**
      * Returns the number of elements in this list.  If this list contains
      * more than <tt>Integer.MAX_VALUE</tt> elements, returns
@@ -230,7 +224,7 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public T get(int index) {
-        return elementData[index];
+        return (T) array[index];
     }
 
     /**
@@ -295,10 +289,13 @@ public class MyArrayList<T> implements List<T> {
      */
     @Override
     public T remove(int index) {
-        T buffer = elementData[index];
-        for(int i = index+1; i < size; i--){
-            elementData[index] = elementData[index+1];
-        }
+        T buffer = (T)array[index];
+        for (int i = index; i<size; i++)
+            array[i] = array[i+1];
+        array[size] = null;
+        size--;
+        if (array.length > INIT_SIZE && size < array.length / CUT_RATE)
+            resize(array.length/2);
         return buffer;
     }
 
@@ -533,15 +530,19 @@ public class MyArrayList<T> implements List<T> {
     }
 
     public int addElement(T t){
-        elementData[size++] = t;
+        if(size == array.length-1)
+            resize(array.length*2);
+        array[size++] = t;
         return size - 1;
     }
 
     public void add(T t, int i){
+        if(size == array.length-1)
+            resize(array.length*2);
         for(int j = size - 1; j >= i; j--){
-            elementData[j+1] = elementData[j];
+            array[j+1] = array[j];
         }
-        elementData[i] = t;
+        array[i] = t;
         size++;
     }
 

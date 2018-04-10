@@ -2,7 +2,7 @@ package Part2;
 
 public class Ball implements Runnable {
 
-    private int gameOn = 1;
+    private boolean gameOn = true;
     /**
      * When an object implementing interface <code>Runnable</code> is used
      * to create a thread, starting the thread causes the object's
@@ -18,7 +18,7 @@ public class Ball implements Runnable {
     public void run() {
         while(play()){
             System.out.println("Bamp!");
-            gameOn = 0;
+            gameOn = false;
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -26,14 +26,15 @@ public class Ball implements Runnable {
             }
         }
         System.out.println("Your loose! HA-HA-HA!");
+        System.exit(0);
     }
 
     private boolean play(){
-        return gameOn > 0;
+        return gameOn;
     }
 
     public void beatBall(){
-        gameOn = 1;
+        gameOn = true;
     }
 
 }

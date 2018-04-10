@@ -18,5 +18,6 @@ public class PingPong {
 
         }
         scanner.close();
+
     }
 }
