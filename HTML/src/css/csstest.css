@@ -1,0 +1,34 @@
+.test {
+    width: 100%;
+
+}
+.nav-link{
+    text-align: right;
+    height: 50px;
+    line-height: 12px;
+    border-bottom : 1px solid #E3E3E3;
+    padding : 20px 10px 10px 35px;background : #f3f3f3;
+    margin-bottom: 10px;
+}
+.form1{
+    width: 30%;
+    margin: 0 auto;
+    margin-bottom: 5px;
+}
+.col-sm-2{
+    max-width: 50%;
+}
+.btn-block{
+
+background-color: #0167d4;
+
+color: white;
+
+}
+.content{
+    margin: 15% auto;
+}
+.text{
+    text-align:center;
+    vertical-align: middle;
+}
