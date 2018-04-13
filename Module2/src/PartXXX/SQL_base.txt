@@ -1,0 +1,39 @@
+CREATE TABLE `social_network`.`user` (
+  `user_Id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`user_Id`));
+
+CREATE TABLE `social_network`.`photo` (
+  `photo_Id` INT NOT NULL,
+  `photoName` VARCHAR(45) NOT NULL,
+  `author_Id` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`photo_Id`));
+
+CREATE TABLE `social_network`.`comment` (
+  `comment_id` INT NOT NULL,
+  `comment_name` VARCHAR(45) NOT NULL,
+  `comment_text` VARCHAR(45) NOT NULL,
+  `author_id` VARCHAR(45) NOT NULL,
+  `photo_id` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`comment_id`));
+
+CREATE TABLE `social_network`.`like` (
+  `author_id` INT NOT NULL,
+  `entity_id` INT NOT NULL,
+  PRIMARY KEY (`author_id`, `entity_id`));
+
+ALTER TABLE `social_network`.`photo` 
+ADD CONSTRAINT `user_id`
+  FOREIGN KEY (`author_Id`)
+  REFERENCES `social_network`.`user` (`id_user`);
+
+ALTER TABLE `social_network`.`comment` 
+ADD CONSTRAINT `photo_id`
+  FOREIGN KEY (`photo_id`)
+  REFERENCES `social_network`.`photo` (`photo_Id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `author_id`
+  FOREIGN KEY (`author_id`)
+  REFERENCES `social_network`.`user` (`id_user`);
+
